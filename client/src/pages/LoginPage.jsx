@@ -4,8 +4,10 @@ import passwordIcon from "../assets/password.svg";
 import { useState, useContext } from "react";
 import { UserContext } from "../context/userContext";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+    const navigate = useNavigate();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -19,14 +21,15 @@ const LoginPage = () => {
             setState("sign up");
         }
     }
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         try {
             event.preventDefault();
             if (state === "sign up") {
-                login(state, { name, email, password });
+                await login(state, { name, email, password });
             } else {
-                login(state, { email, password });
+                await login(state, { email, password });
             }
+            navigate("/task-list");
         } catch(error) {
             toast.error(error.message);
         }

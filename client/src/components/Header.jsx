@@ -1,11 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+    const navigate = useNavigate();
     const { userName, logout } = useContext(UserContext);
     const [hours, setHours] = useState(String(new Date().getHours()).padStart(2,"0"));
     const [minutes, setMinutes] = useState(String(new Date().getMinutes()).padStart(2,"0"));
     const [seconds, setSeconds] = useState(String(new Date().getSeconds()).padStart(2,"0"));
+    const handleLogout = () => {
+        logout();
+        navigate("/");
+    }
     useEffect(() => {
         const timer = setInterval(() => {
             setHours(String(new Date().getHours()).padStart(2,"0"));
@@ -27,7 +33,7 @@ const Header = () => {
                     <h1 className="font-semibold">Time:</h1>
                     <h1 className="text-red-500 font-semibold">{`${hours}:${minutes}:${seconds}`}</h1>
                 </div>
-                <button onClick={logout} className="px-5 mx-5 bg-red-500 rounded-lg text-white cursor-pointer active:bg-red-400 transition-all ease-in-out">Logout</button>
+                <button onClick={handleLogout} className="px-5 mx-5 bg-red-500 rounded-lg text-white cursor-pointer active:bg-red-400 transition-all ease-in-out">Logout</button>
             </div>
         </div>
     )

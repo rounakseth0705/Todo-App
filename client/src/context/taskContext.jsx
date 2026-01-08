@@ -1,17 +1,19 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import API from "../apis/api";
 import toast from "react-hot-toast";
+import { UserContext } from "./userContext";
 
 export const TaskContext = createContext();
 
 export const TaskProvider = ({children}) => {
+    const { user } = useContext(UserContext);
     const [title, setTitle] = useState("");
     const [tasks, setTasks] = useState([]);
     const addTask = async (title) => {
         try {
             const { data } = await API.post("/add-task", { title });
             if (data.success) {
-                setTasks([...tasks,data.task]);
+                setTasks(prev => [...prev,data.task]);
                 toast.success(data.message);
             } else {
                 toast.error(data.message);
@@ -37,6 +39,7 @@ export const TaskProvider = ({children}) => {
         try {
             const { data } = await API.get("/get-tasks");
             if (data.success) {
+                console.log(data.tasks);
                 setTasks(data.tasks);
             } else {
                 toast.error(data.message);
@@ -46,11 +49,11 @@ export const TaskProvider = ({children}) => {
         }
     }
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
+        console.log("User", user);
+        if (user) {
             getTasks();
         }
-    }, [])
+    }, [user]);
     const value = { tasks, title, setTitle, addTask, deleteTask }
     return(
         <TaskContext.Provider value={value}>

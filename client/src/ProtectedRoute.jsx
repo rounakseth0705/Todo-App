@@ -3,8 +3,8 @@ import { UserContext } from "./context/userContext";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({children}) => {
-    const { token } = useContext(UserContext);
-    return token ? (
+    const { user } = useContext(UserContext);
+    return user ? (
         <>
             {children}
         </>

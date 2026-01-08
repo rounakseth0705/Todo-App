@@ -16,7 +16,7 @@ export const signUp = async (req,res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await userModel.create({ name, email, password: hashedPassword });
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-        return res.json({ success: true, token: token, message: "Sign up successful" });
+        return res.json({ success: true, user: user, token: token, message: "Sign up successful" });
     } catch(error) {
         return res.json({ success: false, message: error.message });
     }
@@ -37,15 +37,15 @@ export const login = async (req,res) => {
             return res.json({ success: false, message: "Invalid password" });
         }
         const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET);
-        return res.json({ success: true, token: token, message: "Logged In successfully" });
+        return res.json({ success: true, user: existingUser,  token: token, message: "Logged In successfully" });
     } catch(error) {
         return res.json({ success: false, message: error.message });
     }
 }
 
-export const getUserName = async (req,res) => {
+export const getUser = async (req,res) => {
     try {
-        return res.json({ success: true, name: req.user.name, message: "User name" });
+        return res.json({ success: true, user: req.user, message: "User details" });
     } catch(error) {
         return res.json({ success: false, message: error.message });
     }
@@ -84,11 +84,11 @@ export const deleteTask = async (req,res) => {
 
 export const getTasks = async (req,res) => {
     try {
-        const id = req.user._id;
-        if (!id) {
+        const userId = req.user._id;
+        if (!userId) {
             return res.json({ success: false, message: "User not logged in" });
         }
-        const tasks = await taskModel.find({ id });
+        const tasks = await taskModel.find({ userId });
         return res.json({ success: true, tasks: tasks, message: "Tasks assigned by the user" });
     } catch(error) {
         return res.json({ success: false, message: error.message });

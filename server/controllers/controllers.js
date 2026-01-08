@@ -71,7 +71,7 @@ export const addTask = async (req,res) => {
 
 export const deleteTask = async (req,res) => {
     try {
-        const { uniqueId } = req.params;
+        const { uniqueId } = req.body;
         if (!uniqueId) {
             return res.json({ success: false, message: "Provide the id of the task" });
         }

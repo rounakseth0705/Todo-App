@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
 const taskSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
     title: { type: String, required: true },
-    uniqueId : { type: Number, required: true }
+    uniqueId : { type: String, required: true }
 });
 
 export const userModel = mongoose.model("user", userSchema);

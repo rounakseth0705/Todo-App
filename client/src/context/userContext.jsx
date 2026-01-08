@@ -3,7 +3,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import API from "../api.js";
+import API from "../apis/api.js";
 
 export const UserContext = createContext();
 

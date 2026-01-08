@@ -1,10 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { TaskContext } from "../context/taskContext";
 
 const TaskAdder = () => {
     const { title, setTitle, addTask } = useContext(TaskContext);
     const handleAddTask = () => {
         addTask(title);
+        setTitle("");
     }
     return(
         <div className="flex justify-center items-center">

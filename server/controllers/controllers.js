@@ -1,6 +1,7 @@
 import { taskModel, userModel } from "../models/models.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { nanoid } from "nanoid";
 
 export const signUp = async (req,res) => {
     try {
@@ -52,17 +53,17 @@ export const getUserName = async (req,res) => {
 
 export const addTask = async (req,res) => {
     try {
-        const { task } = req.body;
-        if (!task) {
-            return res.json({ success: false, message: "Missing task" });
+        const uniqueId = nanoid(8);
+        const { title } = req.body;
+        if (!title) {
+            return res.json({ success: false, message: "Task not provided" });
         }
-        const time = new Date().getTime();
-        const id = req.user._id;
-        if (!id) {
+        const userId = req.user._id;
+        if (!userId) {
             return res.json({ success: false, message: "User not logged in" });
         }
-        await taskModel.create({ id, task, time });
-        return res.json({ success: true, message: "Task Added" });
+        const task = await taskModel.create({ userId, title, uniqueId });
+        return res.json({ success: true, task: task, message: "Task Added" });
     } catch(error) {
         return res.json({ success: false, message: error.message });
     }
@@ -70,16 +71,11 @@ export const addTask = async (req,res) => {
 
 export const deleteTask = async (req,res) => {
     try {
-        const { task } = req.body;
-        if (!task) {
-            return res.json({ success: false, message: "Missing task to delete" });
+        const { uniqueId } = req.params;
+        if (!uniqueId) {
+            return res.json({ success: false, message: "Provide the id of the task" });
         }
-        const id = req.user._id;
-        const time = new Date().getTime();
-        if (!id) {
-            return res.json({ success: false, message: "User not logged in" });
-        }
-        await taskModel.deleteOne({ id, task, time });
+        await taskModel.deleteOne({ uniqueId });
         return res.json({ success: true, message: "Task deleted" });
     } catch(error) {
         return res.json({ success: false, message: error.message });

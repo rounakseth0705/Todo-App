@@ -8,7 +8,7 @@ routes.post("/sign-up", signUp);
 routes.post("/login", login);
 routes.get("/get-user-name", authUser, getUserName);
 routes.post("/add-task", authUser, addTask);
-routes.post("/delete-task", authUser, deleteTask);
+routes.post("/delete-task/:id", authUser, deleteTask);
 routes.get("/get-tasks", authUser, getTasks);
 
 export default routes;

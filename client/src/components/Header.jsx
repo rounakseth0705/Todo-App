@@ -26,7 +26,7 @@ const Header = () => {
         <div className="flex justify-between items-center">
             <div className="flex justify-center items-center p-2">
                 <h1 className="p-1 font-semibold sm:text-md">Hello {userName},</h1>
-                <h1 className="text-md text-red-500 p-1 font-bold sm:text-2xl">Good Afternoon!</h1>
+                <h1 className="text-md text-red-500 p-1 font-bold sm:text-2xl">Good { hours <= 11 && hours > 4 ? "Morning" : hours >= 12 && hours <= 15 ? "Afternoon" : hours >=16 && hours <=20 ? "Evening" : "Night" }!</h1>
             </div>
             <div className="flex justify-center items-center">
                 <div className="flex justify-center items-center p-2 px-2 sm:px-5">

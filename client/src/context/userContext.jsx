@@ -16,7 +16,7 @@ export const AuthProvider = ({children}) => {
             if (data.success) {
                 localStorage.setItem("token", data.token);
                 setToken(data.token);
-                setUserName(data.user.name);
+                setUserName(data.user.name?.split(" ")[0]);
                 setUser(data.user);
                 toast.success(data.message);
             } else {
@@ -42,7 +42,7 @@ export const AuthProvider = ({children}) => {
             const { data } = await API.get("/get-user");
             if (data.success) {
                 setUser(data.user);
-                setUserName(data.user.name);
+                setUserName(data.user.name?.split(" ")[0]);
             } else {
                 toast.error("Cannot fetch the user");
             }

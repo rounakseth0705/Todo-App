@@ -26,7 +26,7 @@ const TaskList = () => {
         }
     }, [])
     return(
-        <div className="mt-3 flex flex-col bg-blue-50 rounded-md p-4">
+        <div className="mt-3 flex flex-col bg-blue-50 rounded-md p-4 h-auto overflow-y-auto">
             <p className="underline text-red-500">{`Date: ${day}/${month}/${year}`}</p>
             { tasks.length === 0 ? <p>No Tasks yet</p> :
                 tasks.map((task) => (

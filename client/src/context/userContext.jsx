@@ -37,21 +37,21 @@ export const AuthProvider = ({children}) => {
             toast.error(error.message);
         }
     }
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (!token) return;
-        const loadUser = async () => {
-            try {
-                const { data } = await API.get("/get-user");
-                if (data.success) {
-                    setUser(data.user);
-                }
-            } catch (err) {
-                logout();
-            }
-        };
-        loadUser();
-    }, []);
+    // useEffect(() => {
+    //     const token = localStorage.getItem("token");
+    //     if (!token) return;
+    //     const loadUser = async () => {
+    //         try {
+    //             const { data } = await API.get("/get-user");
+    //             if (data.success) {
+    //                 setUser(data.user);
+    //             }
+    //         } catch (err) {
+    //             logout();
+    //         }
+    //     };
+    //     loadUser();
+    // }, []);
     const value = { userName, token, user, login, logout }
     return(
         <UserContext.Provider value={value}>

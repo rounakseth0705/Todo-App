@@ -6,7 +6,7 @@ import { UserContext } from "./userContext";
 export const TaskContext = createContext();
 
 export const TaskProvider = ({children}) => {
-    const { user } = useContext(UserContext);
+    const { token, user } = useContext(UserContext);
     const [title, setTitle] = useState("");
     const [tasks, setTasks] = useState([]);
     const addTask = async (title) => {
@@ -49,8 +49,8 @@ export const TaskProvider = ({children}) => {
         }
     }
     useEffect(() => {
-        console.log("User", user);
-        if (user) {
+        const token = localStorage.getItem("token");
+        if (token) {
             getTasks();
         }
     }, [user]);

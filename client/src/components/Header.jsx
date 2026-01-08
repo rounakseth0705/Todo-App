@@ -23,17 +23,17 @@ const Header = () => {
         }
     }, [])
     return(
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
             <div className="flex justify-center items-center p-2">
-                <h1 className="p-1 font-semibold">Hello {userName},</h1>
-                <h1 className="text-2xl text-red-500 p-1 font-bold">Good Afternoon!</h1>
+                <h1 className="p-1 font-semibold sm:text-md">Hello {userName},</h1>
+                <h1 className="text-md text-red-500 p-1 font-bold sm:text-2xl">Good Afternoon!</h1>
             </div>
             <div className="flex justify-center items-center">
-                <div className="flex justify-center items-center p-2 px-5">
+                <div className="flex justify-center items-center p-2 px-2 sm:px-5">
                     <h1 className="font-semibold">Time:</h1>
                     <h1 className="text-red-500 font-semibold">{`${hours}:${minutes}:${seconds}`}</h1>
                 </div>
-                <button onClick={handleLogout} className="px-5 mx-5 bg-red-500 rounded-lg text-white cursor-pointer active:bg-red-400 transition-all ease-in-out">Logout</button>
+                <button onClick={handleLogout} className="px-3 mx-1 bg-red-500 rounded-lg text-white text-sm cursor-pointer active:bg-red-400 transition-all ease-in-out sm:mx-3 sm:px-5">Logout</button>
             </div>
         </div>
     )

@@ -9,7 +9,7 @@ const HomePage = () => {
             <Header/>
             <Heading/>
             <div className="flex justify-center items-center">
-                <div className="w-250">
+                <div className="w-140 m-2 sm:m-1 md:w-180 lg:w-250">
                 <TaskAdder/>
                 <TaskList/>
                 </div>
